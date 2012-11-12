@@ -1,13 +1,13 @@
 # Maintainer: George Kamenov <cybertorture@gmail.com>
 pkgname=gnome-photos-git
-pkgver=20121111
+pkgver=20121112
 pkgrel=1
 pkgdesc="Photos - access, organize and share your photos on GNOME"
 arch=('i686' 'x86_64')
 url="http://www.gnome.org"
 license=('GPL2')
 depends=('gtk3')
-makedepends=('git' 'gnome-common')
+makedepends=('git' 'gnome-common' 'intltool')
 optdepends=()
 provides=('gnome-photos')
 conflicts=('gnome-photos')
