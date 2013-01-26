@@ -5,7 +5,7 @@
 #
 
 pkgname=gnome-photos-git
-pkgver=20121213
+pkgver=20130126
 pkgrel=1
 pkgdesc="Photos - access, organize and share your photos on GNOME"
 arch=('i686' 'x86_64')
@@ -25,18 +25,16 @@ build() {
   cd "$srcdir"
   msg "Connecting to GIT server...."
 
-  if [[ -d "$_gitname" ]]; then
-    cd "$_gitname" && git pull origin master ; git checkout 992c39d61dcb942e7677692196db2081e78799b6
-    msg "The local files are updated."
-  else
-    git clone "$_gitroot" "$_gitname" ; cd "$_gitname" ; git checkout  992c39d61dcb942e7677692196db2081e78799b6
-  fi
+  git clone "$_gitroot" "$_gitname"
 
   msg "GIT checkout done or server timeout"
   msg "Starting build..."
 
   rm -rf "$srcdir/$_gitname-build"
   cd "$srcdir/$_gitname"
+  
+  # Revert glib 2.35 requirement
+  patch -RNp1 -i "$srcdir/glib-2.35.patch"
 
   ./autogen.sh --prefix=/usr
   make
